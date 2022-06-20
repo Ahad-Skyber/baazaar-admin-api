@@ -1,0 +1,28 @@
+
+
+module.exports = (sequelize, Sequelize) => {
+  const Country_Mod = sequelize.define('country', {
+      id: {
+          type: Sequelize.BIGINT,
+          primaryKey: true,
+          autoIncrement: true
+      },
+      country_name: {
+          type: Sequelize.STRING
+      },
+      country_flag_img: {
+          type: Sequelize.STRING
+      },
+      is_popular: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: 0
+      },
+      status: {
+          type: Sequelize.STRING
+      },
+
+      
+  }, { underscored: true, timestamps: true, freezeTableName: true });
+
+  return Country_Mod;
+} 

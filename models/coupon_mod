@@ -1,0 +1,46 @@
+const User_Mod = require('./user_mod');
+
+module.exports = (sequelize, Sequelize) => {
+    const Coupon_Mod = sequelize.define('coupon', {
+        id: {
+            type: Sequelize.BIGINT,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        coupon_code: {
+            type: Sequelize.STRING
+        },
+        coupon_type: {
+            type: Sequelize.STRING
+        },
+        amount: {
+            type: Sequelize.DOUBLE
+        },
+        min_cart_amount: {
+            type: Sequelize.DOUBLE
+        },
+        expiry_date: {
+            type: Sequelize.DATE
+        },
+        status: {
+            type: Sequelize.STRING
+        },
+        once_per_user: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: 0
+        },
+        display_for_all: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: 0
+        },
+        
+        
+    }, { underscored: true, timestamps: true, freezeTableName: true });
+
+    Coupon_Mod.belongsTo(User_Mod(sequelize, Sequelize), {
+        as: 'user',
+        foreignKey: 'user_id'
+    });
+
+    return Coupon_Mod;
+}

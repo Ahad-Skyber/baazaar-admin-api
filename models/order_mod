@@ -1,0 +1,115 @@
+const User_Mod = require('./user_mod');
+const Customer_Mod = require('./customer_mod');
+const Coupon_Mod = require('./coupon_mod');
+const CustomerAddress_Mod = require('./customer_address_mod');
+
+
+module.exports = (sequelize, Sequelize) => {
+    const Order_Mod = sequelize.define('order', {
+        id: {
+            type: Sequelize.BIGINT,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        order_id: {
+            type: Sequelize.STRING
+        },
+        order_status: {
+            type: Sequelize.STRING
+        },
+        order_date: {
+            type: Sequelize.DATE
+        },
+        order_confirm_date: {
+            type: Sequelize.DATE
+        },
+        order_delivered_date: {
+            type: Sequelize.DATE
+        },
+        order_reject_date: {
+            type: Sequelize.DATE
+        },
+        total_price: {
+            type: Sequelize.DOUBLE
+        },
+        total_qty: {
+            type: Sequelize.INTEGER
+        },
+        delivery_mode: {
+            type: Sequelize.STRING
+        },
+        collecting_date: {
+            type: Sequelize.DATE
+        },
+        collecting_time: {
+            type: Sequelize.STRING
+        },
+        delivery_address: {
+            type: Sequelize.STRING
+        },
+        delivery_contact_no: {
+            type: Sequelize.STRING
+        },
+        is_address_save: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: 0
+        },
+        payment_method: {
+            type: Sequelize.STRING
+        },
+        shipping_charge: {
+            type: Sequelize.DOUBLE
+        },
+        delivery_date: {
+            type: Sequelize.DATE
+        },
+        final_amount: {
+            type: Sequelize.INTEGER
+        },
+        note: {
+            type: Sequelize.STRING
+        },
+        coupon_amount: {
+            type: Sequelize.STRING
+        },
+        total_gst_amount: {
+            type: Sequelize.STRING
+        },
+        discount_amount: {
+            type: Sequelize.STRING
+        },
+        total_mrp: {
+            type: Sequelize.STRING
+        },
+        payment_status: {
+            type: Sequelize.STRING
+        },
+        delivery_tip: {
+            type: Sequelize.INTEGER
+        }
+       
+
+    }, { underscored: true, timestamps: true, freezeTableName: true });
+
+    Order_Mod.belongsTo(Customer_Mod(sequelize, Sequelize), {
+        as: 'customer',
+        foreignKey: 'customer_id'
+    });
+
+    Order_Mod.belongsTo(User_Mod(sequelize, Sequelize), {
+        as: 'user',
+        foreignKey: 'user_id'
+    });
+
+    Order_Mod.belongsTo(Coupon_Mod(sequelize, Sequelize), {
+        as: 'coupon',
+        foreignKey: 'coupon_id'
+    });
+
+    Order_Mod.belongsTo(CustomerAddress_Mod(sequelize, Sequelize), {
+        as: 'customer_address',
+        foreignKey: 'customer_address_id'
+    });
+
+    return Order_Mod;
+}
