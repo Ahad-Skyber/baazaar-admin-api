@@ -30,7 +30,25 @@ module.exports = (sequelize, Sequelize) => {
         
         contact_no: {
            type: Sequelize.STRING 
-        }
+        },
+
+        house_flat_block_no: {
+            type: Sequelize.STRING 
+         },
+         landmark: {
+            type: Sequelize.STRING 
+         },
+         geo_location_address: {
+            type: Sequelize.STRING 
+         },
+
+         latitude: {
+            type: Sequelize.STRING 
+         },
+         longitude: {
+            type: Sequelize.STRING 
+         }
+
         
         
     }, { underscored: true, timestamps: true, freezeTableName: true });

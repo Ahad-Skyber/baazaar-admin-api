@@ -5,7 +5,7 @@ const CustomerAddress_Mod = require('./customer_address_mod');
 
 
 module.exports = (sequelize, Sequelize) => {
-    const Order_Mod = sequelize.define('order', {
+    const Order_Mod = sequelize.define('orders', {
         id: {
             type: Sequelize.BIGINT,
             primaryKey: true,

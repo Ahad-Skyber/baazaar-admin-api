@@ -1,5 +1,6 @@
 const dbConfig = {
-    database: 'dhanda_test',
+    // database: 'dhanda_test',
+    database: 'dhanda_dev',
     username: 'admin',
     password: 'Skills1234',
     dialect: 'mssql',

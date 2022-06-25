@@ -238,7 +238,7 @@ module.exports = {
              const kyc_count = await Kyc_Mod.count({ where: { master_user_id: vendor.master_user_id }});
              const product_count = await Product_Mod.count({ where: { user_id: vendor.id }});
 
-            const total_customers = await Order_Mod.count({distinct: true, col: 'customer_id', where: { user_id: vendor.id } });
+            //const total_customers = await Order_Mod.count({distinct: true, customer_id: 'customer_id', where: { user_id: vendor.id } });
              
             const i_m_p_a = await Store_Mod.findOne({ where : { user_id: req.body.id }, attributes: ['is_marketplace_active']})
              
@@ -282,8 +282,8 @@ module.exports = {
                 industry_type:industry_type.industry_name,
                 store_link:'baazaar.io/'+vendor.user_name,
                 product_count:product_count,
-                total_customers:total_customers,
-                total_sales:totalAmount[0].total_amount
+                //total_customers:total_customers,
+                 total_sales:totalAmount[0].total_amount
        
               }
               response.push(data); 
@@ -721,6 +721,8 @@ module.exports = {
         }).catch(err => {
           console.log(err)
         })
+
+        
       },
     
 

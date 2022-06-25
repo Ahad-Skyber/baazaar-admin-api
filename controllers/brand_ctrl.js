@@ -25,7 +25,7 @@ module.exports = {
 			
 				Brand_Mod.create({
 							
-                    brand_name:req.body.brand_name,status:'Active',brand_img_url:null
+                    brand_name:req.body.brand_name,status:req.body.status,brand_img_url:null
 
 				})
 				.then( newBrand => {

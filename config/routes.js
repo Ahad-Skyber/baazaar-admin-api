@@ -13,5 +13,7 @@ module.exports = (app) => {
     app.use('/vendor', require('../routes/vendor'));
     app.use('/product', require('../routes/product'));
     app.use('/company_details', require('../routes/company_details'));
+    app.use('/country', require('../routes/country'));
+    app.use('/order', require('../routes/order'));
 };
 

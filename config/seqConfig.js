@@ -67,6 +67,8 @@ const models = {
     company_details_mod: require('../models/company_details_mod')(sequelize, Sequelize),
     
     company_coupons_mod: require('../models/company_coupons_mod')(sequelize, Sequelize),
+
+    country_mod: require('../models/country_mod')(sequelize, Sequelize),
 };
 
 console.log('print admin models')
