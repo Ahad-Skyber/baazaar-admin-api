@@ -222,7 +222,9 @@ else
                 final_amount: order_detail.final_amount == null ? 'NA' : order_detail.final_amount,
 
                 vendor_otp:firstCharacter+secondCharacter+thirdCharacter+fourthCharacter,
-                customer_otp:thirdCharacter+firstCharacter+fourthCharacter+secondCharacter
+                // customer_otp:thirdCharacter+firstCharacter+fourthCharacter+secondCharacter
+
+                customer_otp:vndr_otp.product_id
                
                    
               }
