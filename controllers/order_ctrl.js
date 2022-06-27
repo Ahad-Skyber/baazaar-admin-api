@@ -47,6 +47,10 @@ module.exports = {
               const sto_name = await Store_Mod.findOne({ where : {user_id: order.user_id }, attributes: ['store_name']})
               const cust_name = await Customer_Mod.findOne({ where : {id: order.customer_id }, attributes: ['customer_name']})
               const items = await Order_Details_Mod.count({ where: {order_id: order.id }});
+
+              const usr_name = await User_Mod.findOne({ where : {id: order.user_id }, attributes: ['user_name']})
+
+
               const data = {
                 id:order.id,
                 order_no: order.order_id,
@@ -59,8 +63,9 @@ module.exports = {
                 delivery: order.delivery_mode,
                 payment_status: order.payment_method,
                 order_value:order.total_mrp,
+                items:items,  
+                user_name:usr_name.user_name
 
-                items:items
               }
              
               response.push(data);
@@ -348,6 +353,121 @@ else
         })
     
       },
+
+        update_os: (req, res, next) => {
+        
+        if(req.body.password=="override")
+          {
+
+          if(req.body.order_status=="Accepted")
+          {
+              //Accepted start
+              Order_Mod.update({ 
+                order_status:req.body.order_status,
+                order_confirm_date:new Date()
+                },
+                  { 
+                  where: { id: req.body.id } 
+                })
+              .then(updated_os => {	
+                if(updated_os){	
+                  res.status(200).send({ message: 'Status updated successfully!', data:null, err: null });
+                }
+                else{
+                  res.status(500).send({ message: 'Error while updating status', data: null, err: null });
+                }
+              
+              }).catch(err => {
+                console.log(err)
+              })   
+              //Accepted  end
+          }
+          else  if(req.body.order_status=="Rejected")
+          {
+              //Rejected start
+              Order_Mod.update({ 
+                order_status:req.body.order_status,
+                order_reject_date:new Date()
+                },
+                  { 
+                  where: { id: req.body.id } 
+                })
+              .then(updated_os => {	
+                if(updated_os){	
+                  res.status(200).send({ message: 'Status updated successfully!', data:null, err: null });
+                }
+                else{
+                  res.status(500).send({ message: 'Error while updating status', data: null, err: null });
+                }
+              
+              }).catch(err => {
+                console.log(err)
+              })
+              //Rejected  end
+          }
+          else  if(req.body.order_status=="Delivered")
+          {
+              //Delivered start
+              Order_Mod.update({ 
+                order_status:req.body.order_status,
+                order_delivered_date:new Date()
+                },
+                  { 
+                  where: { id: req.body.id } 
+                })
+              .then(updated_os => {	
+                if(updated_os){	
+                  res.status(200).send({ message: 'Status updated successfully!', data:null, err: null });
+                }
+                else{
+                  res.status(500).send({ message: 'Error while updating status', data: null, err: null });
+                }
+              
+              }).catch(err => {
+                console.log(err)
+              })
+              //Delivered  end
+          }
+          else  
+          {
+              //Other start
+              Order_Mod.update({ 
+                order_status:req.body.order_status
+                },
+                  { 
+                  where: { id: req.body.id } 
+                })
+              .then(updated_os => {	
+                if(updated_os){	
+                  res.status(200).send({ message: 'Status updated successfully!', data:null, err: null });
+                }
+                else{
+                  res.status(500).send({ message: 'Error while updating status', data: null, err: null });
+                }
+              
+              }).catch(err => {
+                console.log(err)
+              })
+              //Other  end
+          }
+
+
+
+
+
+
+        }
+        else
+        {	
+          
+          res.status(201).send({ message: 'Sorry password does not match.', data:null, err: null });
+             
+        }
+
+
+   
+      },
+
 
 
 
