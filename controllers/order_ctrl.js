@@ -35,6 +35,7 @@ module.exports = {
 
       order_list: (req, res, next) => {  
         Order_Mod.findAll({
+          limit: 50 ,
           order: [
             ['id', 'DESC']
        ]
@@ -230,6 +231,8 @@ else
                 // customer_otp:thirdCharacter+firstCharacter+fourthCharacter+secondCharacter
 
                 customer_otp:vndr_otp.product_id
+
+            
                
                    
               }
@@ -285,7 +288,8 @@ else
                 gst_amount: detail.gst_amount,
                 product_name:prod.product_name,
                 final_amount:(detail.price)*(detail.qty),
-                prod_img:prod_img.product_img_url
+                prod_img:prod_img.product_img_url,
+                s_price:(detail.price)/(detail.qty)
      
               }
               console.log(data)

@@ -23,7 +23,7 @@ module.exports = {
 		return jwt.sign(data, TOKEN_SECRET, {
 			algorithm: "HS512",
 			// expiresIn: "10h"
-            expiresIn: "3600000"  //1 hour
+            expiresIn: "7200000"  //2 hour
 		});
 	},
 
