@@ -35,8 +35,8 @@ module.exports = {
 
       order_list: (req, res, next) => {  
         Order_Mod.findAll({
-          limit: 50 ,
-          order: [
+           limit: 100 ,
+           order: [
             ['id', 'DESC']
        ]
         }).then(async orders => {
@@ -456,10 +456,6 @@ else
           }
 
 
-
-
-
-
         }
         else
         {	
@@ -471,6 +467,65 @@ else
 
    
       },
+
+
+      order_list_by_dates: (req, res, next) => {  
+        const startedDate = new Date(req.body.from_date);
+        const endDate = new Date(req.body.to_date);
+        Order_Mod.findAll({
+          where: { 
+            order_date: {[Op.between] : [startedDate , endDate ]}
+           },
+          
+           order: [
+            ['id', 'DESC']
+       ]
+        }).then(async orders => {
+          if(!orders ||orders.length == 0)
+            return res.send(404).send({ message: 'Orders not found!', data: null, err: null });
+            let response = [];    
+            for(let order of orders){   
+
+              const sto_name = await Store_Mod.findOne({ where : {user_id: order.user_id }, attributes: ['store_name']})
+              const cust_name = await Customer_Mod.findOne({ where : {id: order.customer_id }, attributes: ['customer_name']})
+              const items = await Order_Details_Mod.count({ where: {order_id: order.id }});
+
+              const usr_name = await User_Mod.findOne({ where : {id: order.user_id }, attributes: ['user_name']})
+
+
+              const data = {
+                id:order.id,
+                order_no: order.order_id,
+
+                store_name:sto_name.store_name,
+                customer_name:cust_name.customer_name,
+                order_place_on: order.order_date == null ? 'NA' : moment(order.order_date).add(330, 'minutes').format('DD MMM YYYY hh:mm A'),
+
+                order_status: order.order_status,
+                delivery: order.delivery_mode,
+                payment_status: order.payment_method,
+                order_value:order.total_mrp,
+                items:items,  
+                user_name:usr_name.user_name
+
+              }
+             
+              response.push(data);
+            }
+    
+            return res.status(200).json({
+                message: "Orders!",
+                data: response,
+                err: null
+            })
+        })
+        .catch(err => {
+          console.log(err)
+            return res.sta
+            tus(500).send({ message: 'Error!', data: null, err: err });
+        })
+      },
+
 
 
 
