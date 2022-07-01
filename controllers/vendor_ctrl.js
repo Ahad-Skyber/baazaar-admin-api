@@ -555,9 +555,6 @@ module.exports = {
 
                   
            
-
-            
-
               const data = {
                 id:store.id,
                 store_name:store.store_name,

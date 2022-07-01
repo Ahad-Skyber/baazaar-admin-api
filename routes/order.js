@@ -10,6 +10,6 @@ router
     .post('/order_items',auth, ord_ctrl.order_items)
     .post('/mark_delv',auth, ord_ctrl.mark_delv)
     .post('/update_os',auth, ord_ctrl.update_os)
-    .post('/order_list_by_dates',auth, ord_ctrl.order_list_by_dates)
+    .post('/order_list_by_dates_status',auth, ord_ctrl.order_list_by_dates_status)
    
 module.exports = router;
