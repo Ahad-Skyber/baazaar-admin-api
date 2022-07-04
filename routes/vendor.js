@@ -14,5 +14,6 @@ router
     .post('/vendor_store_details',auth, vndr_ctrl.vendor_store_details)
     .post('/vendor_coupon_list',auth, vndr_ctrl.vendor_coupon_list)
     .post('/update_mps',auth, vndr_ctrl.update_mps)
+    .post('/vendor_store_details_on_vendorid',auth, vndr_ctrl.vendor_store_details_on_vendorid)
    
 module.exports = router;

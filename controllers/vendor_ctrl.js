@@ -723,6 +723,40 @@ module.exports = {
       },
     
 
+      vendor_store_details_on_vendorid: (req, res, next) => {   
+        Store_Mod.findOne({
+          where: { 
+            user_id: req.body.user_id
+          }
+             
+        }).then(async store => {
+    
+          if(!store ||store.length == 0)
+            return res.send(404).send({ message: 'Store not found!', data: null, err: null });
+    
+             let response = [];
+              const data = {
+                id:store.id,
+                store_name:store.store_name,
+               
+                   
+              }
+              response.push(data); 
+
+              return res.status(200).json({
+                message: "Store!",
+                data: response,
+                err: null
+            })
+        })
+        .catch(err => {
+          console.log(err)
+            return res.sta
+            tus(500).send({ message: 'Error!', data: null, err: err });
+        })
+      },
+
+
 
 
  
